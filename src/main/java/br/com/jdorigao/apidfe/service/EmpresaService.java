@@ -3,10 +3,10 @@ package br.com.jdorigao.apidfe.service;
 import br.com.jdorigao.apidfe.entity.Empresa;
 import br.com.jdorigao.apidfe.exception.SistemException;
 import br.com.jdorigao.apidfe.repository.EmpresaRepository;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmpresaService {
@@ -17,21 +17,25 @@ public class EmpresaService {
         this.repository = repository;
     }
 
-    private Empresa salvar(Empresa empresa) {
+    public Empresa salvar(Empresa empresa) {
         validar(empresa);
         return repository.save(empresa);
     }
 
-    private void deletar(Long idEmpresa) {
+    public void deletar(Long idEmpresa) {
         repository.deleteById(idEmpresa);
     }
 
-    private List<Empresa> listaTudo() {
+    public List<Empresa> listaTudo() {
         return repository.findAll();
     }
 
+    public Empresa listarPorId(Long idEmpresa) {
+        return repository.findById(idEmpresa).orElseThrow(() -> new SistemException("Empresa não Encontrada com id: "+idEmpresa));
+    }
+
     private void validar(Empresa empresa) {
-        Optional.ofNullable(empresa.getCpfCnpj()).orElseThrow(() -> new SistemException("Campo cpf/cnpj obrigatorio."));
-        Optional.ofNullable(empresa.getCertificado()).orElseThrow(() -> new SistemException("Campo certificado obrigatorio."));
+        ObjetoUtil.verifica(empresa.getCpfCnpj()).orElseThrow(() -> new SistemException("Campo cpf/cnpj obrigatório."));
+        ObjetoUtil.verifica(empresa.getCertificado()).orElseThrow(() -> new SistemException("Campo certificado obrigatório."));
     }
 }

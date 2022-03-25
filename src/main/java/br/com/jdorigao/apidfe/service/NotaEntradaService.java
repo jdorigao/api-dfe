@@ -3,10 +3,10 @@ package br.com.jdorigao.apidfe.service;
 import br.com.jdorigao.apidfe.entity.NotaEntrada;
 import br.com.jdorigao.apidfe.exception.SistemException;
 import br.com.jdorigao.apidfe.repository.NotaEntradaRepository;
+import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NotaEntradaService {
@@ -17,20 +17,20 @@ public class NotaEntradaService {
         this.repository = repository;
     }
 
-    private NotaEntrada salvar(NotaEntrada notaEntrada) {
+    public NotaEntrada salvar(NotaEntrada notaEntrada) {
         validar(notaEntrada);
         return repository.save(notaEntrada);
     }
 
-    private void deletar(Long idNotaEntrada) {
+    public void deletar(Long idNotaEntrada) {
         repository.deleteById(idNotaEntrada);
     }
 
-    private List<NotaEntrada> listaTudo() {
+    public List<NotaEntrada> listaTudo() {
         return repository.findAll();
     }
 
     private void validar(NotaEntrada notaEmpresa) {
-        Optional.ofNullable(notaEmpresa.getChave()).orElseThrow(() -> new SistemException("Campo chave obrigatoria."));
+        ObjetoUtil.verifica(notaEmpresa.getChave()).orElseThrow(() -> new SistemException("Campo chave obrigatória."));
     }
 }

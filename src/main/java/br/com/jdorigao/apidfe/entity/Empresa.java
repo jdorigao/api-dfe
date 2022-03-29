@@ -17,6 +17,7 @@ public class Empresa {
     private Long id;
     private String cpfCnpj;
     private String razaoSocial;
+    private String uf;
 
     @Enumerated(EnumType.STRING)
     private AmbienteEnum ambiente;

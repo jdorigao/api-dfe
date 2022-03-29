@@ -11,7 +11,7 @@ import java.util.Base64;
 class ApiNFeApplicationTests {
 
     public static void main(String[] args) throws IOException {
-        System.out.println(fileToByte("/mnt/Workspace/certificado.pfx"));
+        System.out.println(fileToByte("/mnt/ssd/Workspace/certificado.pfx"));
     }
 
     private static String fileToByte(String caminhoArquivo) throws IOException {

@@ -3,7 +3,6 @@ package br.com.jdorigao.apidfe.service;
 import br.com.jdorigao.apidfe.entity.NotaEntrada;
 import br.com.jdorigao.apidfe.exception.SistemException;
 import br.com.jdorigao.apidfe.repository.NotaEntradaRepository;
-import br.com.swconsultoria.nfe.util.ObjetoUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,20 +16,16 @@ public class NotaEntradaService {
         this.repository = repository;
     }
 
-    public NotaEntrada salvar(NotaEntrada notaEntrada) {
-        validar(notaEntrada);
-        return repository.save(notaEntrada);
-    }
-
-    public void deletar(Long idNotaEntrada) {
-        repository.deleteById(idNotaEntrada);
+    public void salvar(List<NotaEntrada> notaEntrada) {
+        repository.saveAll(notaEntrada);
     }
 
     public List<NotaEntrada> listaTudo() {
         return repository.findAll();
     }
 
-    private void validar(NotaEntrada notaEmpresa) {
-        ObjetoUtil.verifica(notaEmpresa.getChave()).orElseThrow(() -> new SistemException("Campo chave obrigatória."));
+    public NotaEntrada listarPorId(Long idNota) {
+        return repository.findById(idNota)
+                .orElseThrow(() -> new SistemException("Nota não encontrada com o id: " + idNota));
     }
 }

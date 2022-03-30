@@ -52,4 +52,14 @@ public class NotaEntradaController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping(value = "xml/{id}")
+    public ResponseEntity<?> getXml(@PathVariable("id") Long idNotaEntrada) {
+        try {
+            return ResponseEntity.ok(notaEntradaService.getXml(idNotaEntrada));
+        } catch (Exception e) {
+            log.error("Erro ao listar NotaEntrada", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

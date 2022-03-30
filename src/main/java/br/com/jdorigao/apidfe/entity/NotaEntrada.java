@@ -1,5 +1,6 @@
 package br.com.jdorigao.apidfe.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,9 +20,11 @@ public class NotaEntrada {
     private String nomeEmitente;
     private String cnpjEmitente;
     private BigDecimal valor;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private byte[] xml;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Empresa empresa;
 }

@@ -62,4 +62,14 @@ public class NotaEntradaController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping(value = "chave/{chave}")
+    public ResponseEntity<?> getXml(@PathVariable("chave") String chave) {
+        try {
+            return ResponseEntity.ok(notaEntradaService.getPorChave(chave));
+        } catch (Exception e) {
+            log.error("Erro ao listar NotaEntrada", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

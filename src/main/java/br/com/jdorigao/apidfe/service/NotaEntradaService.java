@@ -35,4 +35,9 @@ public class NotaEntradaService {
         return nota.getXml();
         // return ArquivoUtil.descompactaXml(nota.getXml()); TODO: Descompactar notas
     }
+
+    public NotaEntrada getPorChave(String chave) {
+        return repository.findFirstByChave(chave)
+                .orElseThrow(() -> new SistemException("Nota não encontrada com a chave: " + chave));
+    }
 }
